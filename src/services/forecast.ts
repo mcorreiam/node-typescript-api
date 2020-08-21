@@ -1,6 +1,6 @@
-import { Beach } from './../models/beach';
-import { InternalError } from './../util/errors/internal-error';
-import { StormGlass, ForecastPoint } from '@src/clients/stormGlass';
+import { Beach } from '../models/beach'; //'@src/models/beach';
+import { InternalError } from '../util/errors/internal-error'; //'@src/util/errors/internal-error';
+import { StormGlass, ForecastPoint } from '../clients/stormGlass'; //'@src/clients/stormGlass';
 export interface TimeForecast {
   time: string;
   forecast: BeachForecast[];

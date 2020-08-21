@@ -1,5 +1,5 @@
-import { Beach } from './../models/beach';
-import { Forecast } from './../services/forecast';
+import { Beach } from '../models/beach';
+import { Forecast } from '../services/forecast'; //' @src/services/forecast';
 import { Controller, Get } from '@overnightjs/core';
 import { Request, Response } from 'express';
 
@@ -16,6 +16,7 @@ export class ForecastController {
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
     } catch (error) {
+      console.error(error);
       res.status(500).send({ error: 'Something went wrong' });
     }
   }

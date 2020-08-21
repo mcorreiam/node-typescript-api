@@ -27,11 +27,10 @@ describe('Beach forescast functional test', () => {
       .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
       .get('/v2/weather/point')
       .query({
-        params: /(.*)/,
-        source: 'noaa',
-        end: '1592113802',
         lat: '-33.792726',
         lng: '151.289824',
+        params: /(.*)/,
+        source: 'noaa',
       })
       .reply(200, sortmGlassWeather3HoursFixture);
 
