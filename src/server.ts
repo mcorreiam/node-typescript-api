@@ -1,3 +1,4 @@
+import { UsersController } from './controllers/user';
 import { BeachesController } from './controllers/beaches';
 import { ForecastController } from './controllers/forecast';
 import './util/module-alias';
@@ -25,7 +26,12 @@ export class SetupServer extends Server {
   private setupControllers(): void {
     const forecastController = new ForecastController();
     const beachesController = new BeachesController();
-    this.addControllers([forecastController, beachesController]);
+    const usersController = new UsersController();
+    this.addControllers([
+      forecastController,
+      beachesController,
+      usersController,
+    ]);
   }
 
   private async databaseSetup(): Promise<void> {
