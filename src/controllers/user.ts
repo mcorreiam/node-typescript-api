@@ -1,3 +1,4 @@
+import AuthService from '@src/services/auth';
 import { Controller, Post } from '@overnightjs/core';
 import { Response, Request } from 'express';
 import { User } from '@src/models/user';
@@ -14,5 +15,28 @@ export class UsersController extends BaseController {
     } catch (error) {
       this.sendCreateUpdateErrorResponse(res, error);
     }
+  }
+
+  @Post('authenticate')
+  public async authenticate(
+    req: Request,
+    res: Response
+  ): Promise<Response | undefined> {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send({
+        code: 401,
+        error: 'user not found!',
+      });
+    }
+    if (!(await AuthService.comparePasswords(password, user.password))) {
+      return res.status(401).send({
+        code: 401,
+        error: 'Password does not match',
+      });
+    }
+    const token = AuthService.generateToken(user.toJSON());
+    return res.status(200).send({ token: token });
   }
 }

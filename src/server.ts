@@ -1,7 +1,7 @@
+import './util/module-alias';
 import { UsersController } from './controllers/user';
 import { BeachesController } from './controllers/beaches';
 import { ForecastController } from './controllers/forecast';
-import './util/module-alias';
 import { Server } from '@overnightjs/core';
 import bodyParser from 'body-parser';
 import { Application } from 'express';
