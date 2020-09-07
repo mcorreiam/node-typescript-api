@@ -4,9 +4,12 @@ import { BeachesController } from './controllers/beaches';
 import { ForecastController } from './controllers/forecast';
 import { Server } from '@overnightjs/core';
 import bodyParser from 'body-parser';
+import expressPino from 'express-pino-logger';
+import cors from 'cors';
 import { Application } from 'express';
 import * as database from '@src/database';
 import config from 'config';
+import logger from './logger';
 
 export class SetupServer extends Server {
   constructor(private port = config.get('App.port')) {
@@ -21,6 +24,16 @@ export class SetupServer extends Server {
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
+    this.app.use(
+      expressPino({
+        logger,
+      })
+    );
+    this.app.use(
+      cors({
+        origin: '*',
+      })
+    );
   }
 
   private setupControllers(): void {
@@ -44,7 +57,7 @@ export class SetupServer extends Server {
 
   public start(): void {
     this.app.listen(this.port, () => {
-      console.info('Server listening of port:', this.port);
+      logger.info('Server listening on port: ' + this.port);
     });
   }
 
