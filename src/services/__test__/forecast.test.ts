@@ -1,5 +1,5 @@
 import { StormGlass } from '@src/clients/stormGlass';
-import stormGlassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
+import stormGlassNormalizedResponseFixture from '../../../test/fixtures/stormGlass_normalized_response_3_hours.json'; //' /fixtures/stormglass_normalized_response_3_hours.json';
 import { Forecast, ForecastProcessingInternalError } from '../forecast';
 import { Beach, GeoPosition } from '@src/models/beach';
 
