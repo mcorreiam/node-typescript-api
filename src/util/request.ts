@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface Requestonfig extends AxiosRequestConfig {}
-/* eslint-desable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Response<T = any> extends AxiosResponse<T> {}
 
 export class Request {

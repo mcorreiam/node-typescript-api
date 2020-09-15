@@ -1,8 +1,8 @@
 import AuthService from '@src/services/auth';
-import { authMeddleware } from '../auth';
+import { authMiddleware } from '../auth';
 
-describe('AuthMeddleware', () => {
-  it('should verify a JWT token and call de nex meddleware', () => {
+describe('AuthMiddleware', () => {
+  it('should verify a JWT token and call the next middleware', () => {
     const jwtToken = AuthService.generateToken({ data: 'fake' });
     const reqFake = {
       headers: {
@@ -11,7 +11,7 @@ describe('AuthMeddleware', () => {
     };
     const resFake = {};
     const nextFake = jest.fn();
-    authMeddleware(reqFake, resFake, nextFake);
+    authMiddleware(reqFake, resFake, nextFake);
     expect(nextFake).toHaveBeenCalled();
   });
 
@@ -28,8 +28,7 @@ describe('AuthMeddleware', () => {
       })),
     };
     const nextFake = jest.fn();
-
-    authMeddleware(reqFake, resFake as object, nextFake);
+    authMiddleware(reqFake, resFake as Record<string, unknown>, nextFake);
     expect(resFake.status).toHaveBeenCalledWith(401);
     expect(sendMock).toHaveBeenCalledWith({
       code: 401,
@@ -37,7 +36,7 @@ describe('AuthMeddleware', () => {
     });
   });
 
-  it('should return UNAUTHORIZED meddleware if theres no token', () => {
+  it('should return ANAUTHORIZED middleware if theres no token', () => {
     const reqFake = {
       headers: {},
     };
@@ -48,8 +47,7 @@ describe('AuthMeddleware', () => {
       })),
     };
     const nextFake = jest.fn();
-
-    authMeddleware(reqFake, resFake as object, nextFake);
+    authMiddleware(reqFake, resFake as Record<string, unknown>, nextFake);
     expect(resFake.status).toHaveBeenCalledWith(401);
     expect(sendMock).toHaveBeenCalledWith({
       code: 401,

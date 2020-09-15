@@ -1,5 +1,3 @@
-import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
-
 export class InternalError extends Error {
   constructor(
     public message: string,

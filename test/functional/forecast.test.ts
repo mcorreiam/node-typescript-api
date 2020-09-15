@@ -41,6 +41,7 @@ describe('Beach forescast functional test', () => {
         lng: '151.289824',
         params: /(.*)/,
         source: 'noaa',
+        end: /(.*)/,
       })
       .reply(200, sortmGlassWeather3HoursFixture);
 

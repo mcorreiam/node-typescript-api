@@ -1,6 +1,6 @@
 import { SetupServer } from './server';
-import config from 'config';
 import logger from './logger';
+import config from 'config';
 
 enum ExitStatus {
   Failure = 1,
@@ -9,8 +9,9 @@ enum ExitStatus {
 
 process.on('unhandledRejection', (reason, promise) => {
   logger.error(
-    `App exiting due to an unhandled promise: ${promise} and  rason: ${reason}`
+    `App exiting due to an unhandled promise: ${promise} and reason: ${reason}`
   );
+  // lets throw the error and let the uncaughtException handle below handle it
   throw reason;
 });
 
@@ -23,7 +24,7 @@ process.on('uncaughtException', (error) => {
   try {
     const server = new SetupServer(config.get('App.port'));
     await server.init();
-    await server.start();
+    server.start();
 
     const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
     exitSignals.map((sig) =>
@@ -39,7 +40,7 @@ process.on('uncaughtException', (error) => {
       })
     );
   } catch (error) {
-    logger.error(`App exided with error: ${error}`);
+    logger.error(`App exited with error: ${error}`);
     process.exit(ExitStatus.Failure);
   }
 })();
